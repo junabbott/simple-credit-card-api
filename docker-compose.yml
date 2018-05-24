@@ -1,0 +1,17 @@
+version: '3'
+services:
+  simple-credit-card-api: 
+    image: "simple-credit-card-api:1.0.0"
+    ports: 
+      - "8080:8080"
+    links:
+      - db
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=credit-card-dev
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+    - ./src/main/resources/sql/mariadb-schema.sql:/docker-entrypoint-initdb.d/mariadb-schema.sql
